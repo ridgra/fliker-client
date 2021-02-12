@@ -6,9 +6,9 @@ import cn from '../../../utils/cn';
 import styles from './layout.module.scss';
 import ReloadButton from './reload-button';
 
-export default function Layout({ children }) {
+export default function Layout(props) {
   return (
-    <div>
+    <>
       <Head>
         <title>{siteConfig.title}</title>
         <link rel='icon' href='/favicon.ico' />
@@ -24,7 +24,8 @@ export default function Layout({ children }) {
 
         <ReloadButton />
       </header>
-      <>{children}</>
+
+      <main {...props} />
 
       <footer {...cn(styles.footer)}>
         <cite>
@@ -37,6 +38,6 @@ export default function Layout({ children }) {
           </a>
         </cite>
       </footer>
-    </div>
+    </>
   );
 }
