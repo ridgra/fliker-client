@@ -1,0 +1,16 @@
+$color-primary: #456268;
+$color-secondary: #fcf8ec;
+$color-accent: #79a3b1;
+$color-warning: #EB6262;
+
+$color-accent-hover: darken($color-accent, 10%);
+$color-accent-active: darken($color-accent, 20%);
+
+$color-light-1: rgba($color-secondary, 0.1);
+$color-light-2: #ffffff;
+
+$font-primary: 'Roboto', sans-serif;
+
+$nav-transition: 0.3s ease-in-out;
+
+

@@ -1,0 +1,72 @@
+@import 'variables';
+
+@mixin element-container($size) {
+  padding-left: #{$size}rem;
+  padding-right: #{$size}rem;
+}
+
+@mixin layout-container($size) {
+  width: 100%;
+  padding-left: $size/100 * 100%;
+  padding-right: $size/100 * 100%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+@mixin layout-container-vertical($size) {
+  padding-top: $size/100 * 100%;
+  padding-bottom: $size/100 * 100%;
+}
+
+// @mixin container-layout-lg {
+//   @include layout-container(10);
+// }
+
+// @mixin container-layout-vertical-lg {
+//   @include layout-container-vertical(10);
+// }
+
+
+// @mixin button($bg, $color, $bgHover, $colorHover) {
+//   background: $bg;
+//   height: 2.5rem;
+//   border-radius: 4px;
+//   border: none;
+//   @include content-container(1);
+//   color: $color;
+//   cursor: pointer;
+//   transition: 0.3s;
+//   font-weight: 700;
+
+//   &:hover {
+//     // background: darken($bg, 5%);
+//     background: $bgHover;
+//     color: $colorHover;
+//   }
+
+//   &:active {
+//     background: darken($bgHover, 10%);
+//   }
+// }
+
+// @mixin button-primary {
+//   @include button(
+//     $color-primary,
+//     $color-light-1,
+//     $color-secondary,
+//     $color-primary
+//   );
+// }
+
+// @mixin button-secondary {
+//   @include button(
+//     $color-secondary,
+//     $color-primary,
+//     $color-primary,
+//     $color-light-1
+//   );
+// }
+
+// @mixin button-secondary {
+//   @include button($color-secondary, $color-light);
+// }
