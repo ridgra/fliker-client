@@ -5,7 +5,7 @@ const nextConfig = () => {
   return {
     reactStrictMode: true,
     images: {
-      domains: [],
+      domains: ['picsum.photos'],
     },
     webpack(config, options) {
       config.module.rules.push({
