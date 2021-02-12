@@ -11,10 +11,10 @@
   transition: $nav-transition;
 
   &:hover {
-    background: darken($color-accent, 7.5%);
+    background: $color-accent-hover;
   }
   &.focus {
-    background: darken($color-accent, 15%);
+    background: $color-accent-active;
   }
 
   .tags {
@@ -35,12 +35,13 @@
       border-radius: calc((14px+6px+6px) / 5);
       cursor: pointer;
       animation: fade-in 0.3s cubic-bezier(0.39, 0.575, 0.565, 1) both;
+      transition: $nav-transition;
 
       &:hover {
-        background: darken($color-primary, 5%);
+        background: $color-primary-hover;
       }
       &:active {
-        background: darken($color-primary, 15%);
+        background: $color-primary-active;
       }
 
       strong {

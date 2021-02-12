@@ -9,6 +9,7 @@
   border-radius: calc(48px / 5);
   justify-self: right;
   cursor: pointer;
+  transition: $nav-transition;
 
   svg {
     width: 36px;
