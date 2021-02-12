@@ -24,3 +24,22 @@
     }
   }
 }
+
+.footer {
+  text-align: center;
+  // font-weight: 700;
+  background: $color-secondary;
+  height: 5rem;
+  display: grid;
+  place-items: center;
+
+  a {
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+
+  cite {
+    font-style: normal;
+  }
+}

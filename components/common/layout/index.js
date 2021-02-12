@@ -24,7 +24,19 @@ export default function Layout({ children }) {
 
         <ReloadButton />
       </header>
-      <div>{children}</div>
+      <>{children}</>
+
+      <footer {...cn(styles.footer)}>
+        <cite>
+          <Link href='/'>
+            <a>{siteConfig.title} </a>
+          </Link>
+          © {new Date().getFullYear()}&nbsp;by&nbsp;
+          <a href='https://www.linkedin.com/in/ridgra' target='_blank'>
+            Ridho Anugrah
+          </a>
+        </cite>
+      </footer>
     </div>
   );
 }
