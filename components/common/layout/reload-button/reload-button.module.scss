@@ -1,0 +1,25 @@
+@import '../../../../themes/';
+
+.button {
+  height: 48px;
+  width: 48px;
+  display: grid;
+  place-content: center;
+  background: $color-accent;
+  border-radius: calc(48px / 5);
+  justify-self: right;
+  cursor: pointer;
+
+  svg {
+    width: 36px;
+    height: 36px;
+  }
+
+  &:hover {
+    background: $color-accent-hover;
+  }
+
+  &:active {
+    background: $color-accent-active;
+  }
+}
