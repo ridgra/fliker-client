@@ -14,6 +14,12 @@
 }
 
 @mixin layout-container-vertical($size) {
+  @include layout-container($size);
+  padding-top: $size/100 * 25%;
+  padding-bottom: $size/100 * 25%;
+}
+
+@mixin layout-container-vertical-only($size) {
   padding-top: $size/100 * 100%;
   padding-bottom: $size/100 * 100%;
 }
@@ -25,7 +31,6 @@
 // @mixin container-layout-vertical-lg {
 //   @include layout-container-vertical(10);
 // }
-
 
 // @mixin button($bg, $color, $bgHover, $colorHover) {
 //   background: $bg;
