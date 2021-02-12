@@ -1,0 +1,34 @@
+@import '../../../themes/';
+
+.contents {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-gap: 3rem;
+  @include layout-container-vertical-only(5);
+
+  figure {
+    display: grid;
+    grid-row-gap: 1rem;
+  }
+
+  .imgContainer {
+    position: relative;
+    width: 100%;
+    padding-top: 80%;
+
+    div {
+      border-radius: 1rem;
+    }
+  }
+
+  figcaption {
+    display: grid;
+    grid-row-gap: 0.5rem;
+    text-align: left;
+
+    h2 {
+      font-size: 16px;
+      font-weight: 700;
+    }
+  }
+}
