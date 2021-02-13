@@ -1,0 +1,26 @@
+@import '../../../themes/';
+
+.button {
+  height: 48px;
+  @include element-container(2);
+  border-radius: calc(48px / 5);
+  background: $color-accent;
+  color: $color-secondary;
+  cursor: pointer;
+  margin-top: 5%;
+  margin-bottom: 5%;
+
+  &:hover {
+    background: $color-accent-hover;
+  }
+
+  &:active {
+    background: $color-accent-active;
+  }
+}
+
+.p {
+  margin-top: 5%;
+  margin-bottom: 5%;
+
+}

@@ -1,0 +1,10 @@
+@import '../../../themes/';
+
+.headings {
+  display: grid;
+  @include layout-container-vertical-only(5);
+
+  p {
+    font-weight: 300;
+  }
+}

@@ -1,0 +1,42 @@
+@import 'fonts';
+@import 'normalize';
+@import 'index';
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  -webkit-tap-highlight-color: transparent;
+}
+
+body {
+  font-family: $font-primary;
+  font-size: 14px;
+  color: $color-primary;
+}
+
+textarea:focus,
+input:focus,
+button:focus {
+  outline: none;
+}
+// input:-webkit-autofill {
+// box-shadow: 0 0 0 30px darken($color-primary-light, 5%) inset !important;
+// -webkit-text-fill-color: $color-secondary !important;
+// }
+
+a {
+  cursor: pointer;
+  text-decoration: none;
+  color: inherit;
+
+  &:visited {
+    color: inherit;
+  }
+}
+
+button {
+  border: none;
+}

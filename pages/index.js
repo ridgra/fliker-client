@@ -1,65 +1,85 @@
-import Head from 'next/head'
-import styles from '../styles/Home.module.css'
+import { useRouter } from 'next/router';
+import { useEffect } from 'react';
+import Page from '../components/page';
+import { initializeStore } from '../store';
 
-export default function Home() {
-  return (
-    <div className={styles.container}>
-      <Head>
-        <title>Create Next App</title>
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
+export default function Index() {
+  const router = useRouter();
 
-      <main className={styles.main}>
-        <h1 className={styles.title}>
-          Welcome to <a href="https://nextjs.org">Next.js!</a>
-        </h1>
+  useEffect(() => {
+    if (router.asPath === '/') {
+      router.replace('/?page=1');
+    }
+  }, [router.asPath]);
+  return <Page />;
+}
 
-        <p className={styles.description}>
-          Get started by editing{' '}
-          <code className={styles.code}>pages/index.js</code>
-        </p>
+export async function getServerSideProps(context) {
+  const reduxStore = initializeStore();
+  const { dispatch, getState } = reduxStore;
 
-        <div className={styles.grid}>
-          <a href="https://nextjs.org/docs" className={styles.card}>
-            <h3>Documentation &rarr;</h3>
-            <p>Find in-depth information about Next.js features and API.</p>
-          </a>
+  const page = context.query.page || 1;
 
-          <a href="https://nextjs.org/learn" className={styles.card}>
-            <h3>Learn &rarr;</h3>
-            <p>Learn about Next.js in an interactive course with quizzes!</p>
-          </a>
+  // if (!page) {
+  //   return {
+  //     props: { redirect: '/?page=1' },
+  //   };
+  // }
 
-          <a
-            href="https://github.com/vercel/next.js/tree/master/examples"
-            className={styles.card}
-          >
-            <h3>Examples &rarr;</h3>
-            <p>Discover and deploy boilerplate example Next.js projects.</p>
-          </a>
+  const tags = context.query.tags;
 
-          <a
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-            className={styles.card}
-          >
-            <h3>Deploy &rarr;</h3>
-            <p>
-              Instantly deploy your Next.js site to a public URL with Vercel.
-            </p>
-          </a>
-        </div>
-      </main>
+  const content = await fetch(
+    `http://localhost:4000/public-feed?page=${context.query.page}&limit=6`
+  );
+  const jsonContent = await content.json();
 
-      <footer className={styles.footer}>
-        <a
-          href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Powered by{' '}
-          <img src="/vercel.svg" alt="Vercel Logo" className={styles.logo} />
-        </a>
-      </footer>
-    </div>
-  )
+  if (!jsonContent.items) {
+    return {
+      props: {
+        initialReduxState: reduxStore.getState(),
+        redirect: '/',
+      },
+    };
+  }
+
+  if (tags) {
+    const tagingContent = await fetch(
+      `http://localhost:4000/public-feed?tags=${tags}&limit=6`
+    );
+    const jsonTaggingContent = await tagingContent.json();
+
+    dispatch({
+      type: 'SET_TAGGING_ITEMS',
+      payload: jsonTaggingContent.items,
+    });
+
+    dispatch({
+      type: 'SET_HEADING',
+      payload: {
+        title: jsonTaggingContent.title,
+        date: jsonTaggingContent.modified,
+      },
+    });
+  } else {
+    dispatch({
+      type: 'SET_ITEMS',
+      payload: jsonContent.items,
+    });
+
+    dispatch({
+      type: 'SET_HEADING',
+      payload: { title: jsonContent.title, date: jsonContent.modified },
+    });
+  }
+
+  dispatch({
+    type: 'SET_CURRENT_PAGE',
+    currentPage: page,
+  });
+
+  return {
+    props: {
+      initialReduxState: reduxStore.getState(),
+    },
+  };
 }
