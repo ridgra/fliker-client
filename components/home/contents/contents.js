@@ -37,7 +37,7 @@ export default function Contents() {
             />
           </div>
           <figcaption>
-            <h2>{item.title}</h2>
+            <h2><a href={item.link} target='_blank'>{item.title}</a></h2>
             <p>
               <a
                 target='_blank'
