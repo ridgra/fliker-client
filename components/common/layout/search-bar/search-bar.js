@@ -3,6 +3,8 @@ import styles from './search-bar.module.scss';
 import IconSearch from '../../../../assets/icon-search.svg';
 import { useEffect, useRef, useState } from 'react';
 import Dialog from '../../dialog';
+import { useDispatch } from 'react-redux';
+import { useRouter } from 'next/router';
 
 export default function SearchBar({ children }) {
   const [inputOnFocus, setInputOnFocus] = useState(false);
@@ -10,8 +12,12 @@ export default function SearchBar({ children }) {
   const [tags, setTags] = useState([]);
   const [showDialog, setShowDialog] = useState(false);
 
+  const dispatch = useDispatch();
+
   const buttonRef = useRef();
   const inputRef = useRef();
+
+  const router = useRouter();
 
   const tagsHandler = () => {
     tags.length < 3 ? setTags([...tags, tag]) : setShowDialog(true);
@@ -40,6 +46,15 @@ export default function SearchBar({ children }) {
   };
 
   useEffect(() => {
+    !tags.length
+      ? router.replace('/?page=1')
+      : router.replace(`/?tags=${tags.join(',')}`);
+
+    dispatch({
+      type: 'SET_TAGS',
+      payload: tags,
+    });
+
     setShowDialog(false);
   }, [tags]);
 

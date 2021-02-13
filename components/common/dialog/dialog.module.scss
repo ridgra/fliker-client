@@ -15,6 +15,7 @@
   box-shadow: 0 0px 8px rgba($color-warning, 0.5);
   border-radius: calc(2rem / 5);
   animation: fade-in 0.6s cubic-bezier(0.390, 0.575, 0.565, 1.000) both;
+  z-index: 999;
 
   svg {
     width: 24px;

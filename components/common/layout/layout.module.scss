@@ -1,5 +1,11 @@
 @import '../../../themes/';
 
+.container {
+  display: grid;
+  align-content: space-between;
+  min-height: 100vh;
+}
+
 .header {
   @include layout-container(10);
   background: $color-secondary;
@@ -31,6 +37,7 @@
   height: 5rem;
   display: grid;
   place-items: center;
+  position: relative;
 
   a {
     &:hover {

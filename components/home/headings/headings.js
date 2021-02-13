@@ -1,9 +1,12 @@
 import { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
 import cn from '../../../utils/cn';
 import styles from './headings.module.scss';
 
-export default function Headings({ children }) {
+export default function Headings() {
   const [date, setDate] = useState('');
+  const data = useSelector((state) => state.headings);
+
   useEffect(() => {
     const options = {
       weekday: 'long',
@@ -17,12 +20,12 @@ export default function Headings({ children }) {
       second: '2-digit',
     };
 
-    const _date = new Date(`2021-02-11T14:35:56Z`);
+    const _date = new Date(data.date);
     setDate(_date.toLocaleString('en-SG', options));
   }, []);
   return (
     <section {...cn(styles.headings)}>
-      <h1>Recent Uploads tagged hello and world</h1>
+      <h1>{data.title}</h1>
       <p>
         Last modified&nbsp;<time>{date}</time>
       </p>

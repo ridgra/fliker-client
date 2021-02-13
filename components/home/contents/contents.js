@@ -1,37 +1,54 @@
 import cn from '../../../utils/cn';
 import styles from './contents.module.scss';
 import Image from 'next/image';
-import { useEffect, useRef } from 'react';
+import { useRouter } from 'next/router';
+import { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
-export default function Contents({ children }) {
+export default function Contents() {
+  const router = useRouter();
+  const items = useSelector((state) => state.items);
+  const tanggingItems = useSelector((state) => state.tanggingItems);
+  const [cachedItems, setCachedItems] = useState([]);
+  const dispatch = useDispatch();
+
   useEffect(() => {
-    // imgRef.current.style.borderRadius = imgRef.current?.offsetHeight / 5 + 'px';
-    // console.log(imgRef.current.style.borderRadius = '50px')
-    // imgRef.current.style.borderRadius = '50'
-  }, []);
+    router.query.page && setCachedItems([...cachedItems, ...items]);
+    router.query.page > 1 && window.scrollTo(0, router.query.page * 500);
+  }, [router.query.page, router.asPath, dispatch]);
 
-  return (
+  useEffect(() => {
+    router.query.tags && setCachedItems(tanggingItems);
+  }, [router.query.tags, dispatch]);
+
+  return router.query.page > 4 ? (
+    <p {...cn(styles.notFound)}>Page Not Found</p>
+  ) : (
     <article {...cn(styles.contents)}>
-      {images.map((e, i) => (
+      {cachedItems.map((item, i) => (
         <figure key={i}>
           <div {...cn(styles.imgContainer)}>
             <Image
-              src='https://picsum.photos/500/400'
+              src={`${item.media.m.slice(0, item.media.m.length - 1 - 5)}.jpg`}
               layout='fill'
               objectFit='cover'
-              quality={50}
               objectPosition='center'
+              loading='lazy'
             />
           </div>
           <figcaption>
-            <h2>Refreshing Our Vision</h2>
-            <p>Refreshing Our Vision</p>
+            <h2>{item.title}</h2>
+            <p>
+              <a
+                target='_blank'
+                href={`https://www.flickr.com/photos/${item.author_id}/`}
+              >
+                {item.author.match(/"(.*?)"/)[1]}
+              </a>
+            </p>
           </figcaption>
         </figure>
       ))}
     </article>
   );
 }
-
-const images = new Array(9);
-images.fill('1');

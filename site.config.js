@@ -1,5 +1,5 @@
 module.exports = {
-  title: 'Fliker',
+  title: 'fliker.',
   env: {
     dev: process.env.NODE_ENV === 'development',
     prod: process.env.NODE_ENV === 'production',

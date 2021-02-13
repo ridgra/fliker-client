@@ -4,4 +4,6 @@
   @include layout-container-vertical(10);
   background: $color-light-1;
   text-align: center;
+  justify-content: space-between;
+
 }

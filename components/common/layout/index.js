@@ -8,17 +8,13 @@ import ReloadButton from './reload-button';
 
 export default function Layout(props) {
   return (
-    <>
+    <div {...cn(styles.container)}>
       <Head>
         <title>{siteConfig.title}</title>
         <link rel='icon' href='/favicon.ico' />
       </Head>
       <header {...cn(styles.header)}>
-        <nav>
-          <Link href='/'>
-            <a {...cn(styles.logo)}>fliker.</a>
-          </Link>
-        </nav>
+        <span {...cn(styles.logo)}>{siteConfig.title}</span>
 
         <SearchBar />
 
@@ -38,6 +34,6 @@ export default function Layout(props) {
           </a>
         </cite>
       </footer>
-    </>
+    </div>
   );
 }
