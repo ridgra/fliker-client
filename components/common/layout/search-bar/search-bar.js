@@ -46,14 +46,16 @@ export default function SearchBar({ children }) {
   };
 
   useEffect(() => {
-    !tags.length
-      ? router.replace('/?page=1')
-      : router.replace(`/?tags=${tags.join(',')}`);
-
     dispatch({
       type: 'SET_TAGS',
       payload: tags,
     });
+
+    if (tags.length) {
+      router.push(`/?tags=${tags}`);
+    } else {
+      router.push('/');
+    }
 
     setShowDialog(false);
   }, [tags]);

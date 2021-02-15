@@ -23,6 +23,11 @@ export default function Headings() {
     const _date = new Date(data.date);
     setDate(_date.toLocaleString('en-SG', options));
   }, []);
+
+  if (!data.title) {
+    return <></>;
+  }
+
   return (
     <section {...cn(styles.headings)}>
       <h1>{data.title}</h1>

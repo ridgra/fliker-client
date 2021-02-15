@@ -6,7 +6,7 @@ let store;
 const initialState = {
   count: 0,
   items: [],
-  tanggingItems: [],
+  taggingItems: [],
   cachedItems: [],
   currentPage: 1,
   headings: {},
@@ -23,17 +23,12 @@ const reducer = (state = initialState, action) => {
     case 'SET_TAGGING_ITEMS':
       return {
         ...state,
-        tanggingItems: action.payload,
+        taggingItems: action.payload,
       };
     case 'SET_CACHED_ITEMS':
       return {
         ...state,
         cachedItems: action.payload,
-      };
-    case 'SET_CURRENT_PAGE':
-      return {
-        ...state,
-        currentPage: action.currentPage,
       };
     case 'SET_HEADING':
       return {

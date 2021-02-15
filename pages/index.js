@@ -1,17 +1,19 @@
-import { useRouter } from 'next/router';
-import { useEffect } from 'react';
-import Page from '../components/page';
 import { initializeStore } from '../store';
+import Layout from '../components/common/layout';
+import Contents from '../components/home/contents';
+import Headings from '../components/home/headings';
+import Pagination from '../components/home/pagination';
+import styles from '../styles/home.module.scss';
+import cn from '../utils/cn';
 
-export default function Index() {
-  const router = useRouter();
-
-  useEffect(() => {
-    if (router.asPath === '/') {
-      router.replace('/?page=1');
-    }
-  }, [router.asPath]);
-  return <Page />;
+export default function Home() {
+  return (
+    <Layout {...cn(styles.home)}>
+      <Headings />
+      <Contents />
+      <Pagination />
+    </Layout>
+  );
 }
 
 export async function getServerSideProps(context) {
@@ -20,31 +22,22 @@ export async function getServerSideProps(context) {
 
   const page = context.query.page || 1;
 
-  // if (!page) {
-  //   return {
-  //     props: { redirect: '/?page=1' },
-  //   };
-  // }
-
-  const tags = context.query.tags;
-
   const content = await fetch(
-    `http://localhost:4000/public-feed?page=${context.query.page}&limit=6`
+    `http://localhost:4000/public-feed?page=${page}&limit=6`
   );
   const jsonContent = await content.json();
 
-  if (!jsonContent.items) {
+  if (jsonContent.status === 404) {
     return {
-      props: {
-        initialReduxState: reduxStore.getState(),
-        redirect: '/',
-      },
+      props: { redirect: '/' },
     };
   }
 
+  const tags = context.query.tags;
+
   if (tags) {
     const tagingContent = await fetch(
-      `http://localhost:4000/public-feed?tags=${tags}&limit=6`
+      `http://localhost:4000/public-feed?tags=${tags}`
     );
     const jsonTaggingContent = await tagingContent.json();
 
@@ -52,6 +45,8 @@ export async function getServerSideProps(context) {
       type: 'SET_TAGGING_ITEMS',
       payload: jsonTaggingContent.items,
     });
+    if (jsonTaggingContent) {
+    }
 
     dispatch({
       type: 'SET_HEADING',
@@ -71,11 +66,6 @@ export async function getServerSideProps(context) {
       payload: { title: jsonContent.title, date: jsonContent.modified },
     });
   }
-
-  dispatch({
-    type: 'SET_CURRENT_PAGE',
-    currentPage: page,
-  });
 
   return {
     props: {
